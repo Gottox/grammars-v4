@@ -80,3 +80,6 @@
 
 .idea/
 *.iml
+
+*.js
+*.tokens
