@@ -505,21 +505,15 @@ expression
     |   expression '(' expressionList? ')'
     |   'new' creator
     |   '(' type ')' expression
-    |   expression ('++' | '--')
-    |   ('+'|'-'|'++'|'--') expression
-    |   ('~'|'!') expression
-    |   expression ('*'|'/'|'%') expression
-    |   expression ('+'|'-') expression
-    |   expression ('<' '<' | '>' '>' '>' | '>' '>') expression
-    |   expression ('<=' | '>=' | '>' | '<') expression
-    |   expression 'instanceof' type
-    |   expression ('==' | '!=') expression
-    |   expression '&' expression
-    |   expression '^' expression
-    |   expression '|' expression
-    |   expression '&&' expression
-    |   expression '||' expression
-    |   expression '?' expression ':' expression
+    |   unaryAfterOperation
+    |   unaryOperation
+    |   dotOperation
+    |   dashOperation
+    |   bitshiftOperation
+    |   comparisionOperation
+    |   bitwiseOperation
+    |   logicalOperation
+    |   ternaryOperation
     |   <assoc=right> expression
         (   '='
         |   '+='
@@ -535,6 +529,90 @@ expression
         |   '%='
         )
         expression
+    ;
+
+unaryAfterOperation
+    :   expression UnaryAfterOperator
+    ;
+
+UnaryAfterOperator
+    :   '++'
+    |   '--'
+    ;
+
+unaryOperation
+    :   UnaryOperator expression
+    ;
+
+UnaryOperator
+    :   '+'
+    |   '-'
+    |   '++'
+    |   '--'
+    |   '~'
+    |   '!'
+    ;
+
+dotOperation
+    :   expression DotOperator expression
+    ;
+
+DotOperator
+    :   '*'
+    |   '/'
+    |   '%'
+    ;
+
+dashOperation
+    :   expression DashOperator expression
+    ;
+
+DashOperator
+    :   '+'
+    |   '-'
+    ;
+
+bitshiftOperation
+    :   expression BitshiftOperator expression
+    ;
+
+BitshiftOperator
+    : '<' '<'
+    | '>' '>' '>'
+    | '>' '>'
+    ;
+
+comparisionOperation
+    :   expression ComparisionOperator expression
+    ;
+
+ComparisionOperator
+    :   '<='
+    |   '>='
+    |   '>'
+    |   '<'
+    |   'instanceof'
+    |   '=='
+    |   '!='
+    ;
+
+bitwiseOperation
+    :   expression BitwiseOperator expression
+    ;
+
+BitwiseOperator
+    :   '&'
+    |   '^'
+    |   '|'
+    ;
+
+logicalOperation
+    :   expression '&&' expression
+    |   expression '||' expression
+    ;
+
+ternaryOperation
+    :   expression '?' expression ':' expression
     ;
 
 primary
