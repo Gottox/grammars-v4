@@ -505,21 +505,43 @@ expression
     |   expression '(' expressionList? ')'
     |   'new' creator
     |   '(' type ')' expression
-    |   expression UnaryAfterOperator
-    |   UnaryOperator expression
-    |   expression DotOperator expression
-    |   expression DashOperator expression
-    |   expression BitshiftOperator expression
-    |   expression ComparisionOperator expression
-    |   expression BitwiseOperator expression
-    |   expression LogicalOperator expression
-    |   expression '?' expression ':' expression
-    |   <assoc=right> expression AssignmentOperator expression
+    |   unaryAfterOperation
+    |   unaryOperation
+    |   dotOperation
+    |   dashOperation
+    |   bitshiftOperation
+    |   comparisionOperation
+    |   bitwiseOperation
+    |   logicalOperation
+    |   ternaryOperation
+    |   <assoc=right> expression
+        (   '='
+        |   '+='
+        |   '-='
+        |   '*='
+        |   '/='
+        |   '&='
+        |   '|='
+        |   '^='
+        |   '>>='
+        |   '>>>='
+        |   '<<='
+        |   '%='
+        )
+        expression
+    ;
+
+unaryAfterOperation
+    :   expression UnaryAfterOperator
     ;
 
 UnaryAfterOperator
     :   '++'
     |   '--'
+    ;
+
+unaryOperation
+    :   UnaryOperator expression
     ;
 
 UnaryOperator
@@ -531,10 +553,18 @@ UnaryOperator
     |   '!'
     ;
 
+dotOperation
+    :   expression DotOperator expression
+    ;
+
 DotOperator
     :   '*'
     |   '/'
     |   '%'
+    ;
+
+dashOperation
+    :   expression DashOperator expression
     ;
 
 DashOperator
@@ -542,10 +572,18 @@ DashOperator
     |   '-'
     ;
 
+bitshiftOperation
+    :   expression BitshiftOperator expression
+    ;
+
 BitshiftOperator
     : '<' '<'
     | '>' '>' '>'
     | '>' '>'
+    ;
+
+comparisionOperation
+    :   expression ComparisionOperator expression
     ;
 
 ComparisionOperator
@@ -558,30 +596,23 @@ ComparisionOperator
     |   '!='
     ;
 
+bitwiseOperation
+    :   expression BitwiseOperator expression
+    ;
+
 BitwiseOperator
     :   '&'
     |   '^'
     |   '|'
     ;
 
-LogicalOperator
-    :   '&&'
-    |   '||'
+logicalOperation
+    :   expression '&&' expression
+    |   expression '||' expression
     ;
 
-AssignmentOperator
-    :   '='
-    |   '+='
-    |   '-='
-    |   '*='
-    |   '/='
-    |   '&='
-    |   '|='
-    |   '^='
-    |   '>>='
-    |   '>>>='
-    |   '<<='
-    |   '%='
+ternaryOperation
+    :   expression '?' expression ':' expression
     ;
 
 primary
