@@ -505,23 +505,16 @@ expression
     |   expression '(' expressionList? ')'
     |   'new' creator
     |   '(' type ')' expression
-    |   expression ('++' | '--')
-    |   ('+'|'-'|'++'|'--') expression
-    |   ('~'|'!') expression
-    |   expression ('*'|'/'|'%') expression
-    |   expression ('+'|'-') expression
-    |   expression ('<' '<' | '>' '>' '>' | '>' '>') expression
-    |   expression ('<=' | '>=' | '>' | '<') expression
+    |   expression UnaryAfterOperator
+    |   UnaryOperator expression
     |   expression 'instanceof' type
-    |   expression ('==' | '!=') expression
-    |   expression '&' expression
-    |   expression '^' expression
-    |   expression '|' expression
-    |   expression '&&' expression
-    |   expression '||' expression
-    |   expression '?' expression ':' expression
-    |   <assoc=right> expression
-        (   '='
+    |   expression BinaryOperator expression
+    |   expression '?' ternaryOperation
+    |   <assoc=right> expression AssignOperator expression
+    ;
+
+AssignOperator
+        :   '='
         |   '+='
         |   '-='
         |   '*='
@@ -533,8 +526,32 @@ expression
         |   '>>>='
         |   '<<='
         |   '%='
-        )
-        expression
+        ;
+
+ternaryOperation
+    :   expression ':' expression
+    ;
+
+UnaryAfterOperator
+    :   ('++'|'--')
+    ;
+
+UnaryOperator
+    :   ('+'|'-'|'++'|'--')
+    |   ('~'|'!')
+    ;
+
+BinaryOperator
+    :   '*'|'/'|'%'
+    |   '+'|'-'
+    |   '<' '<' | '>' '>' '>' | '>' '>'
+    |   '<=' | '>=' | '>' | '<'
+    |   '==' | '!='
+    |   '&'
+    |   '^'
+    |   '|'
+    |   '&&'
+    |   '||'
     ;
 
 primary
