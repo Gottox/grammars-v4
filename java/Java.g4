@@ -513,46 +513,10 @@ expression
     |   <assoc=right> expression AssignOperator expression
     ;
 
-AssignOperator
-        :   '='
-        |   '+='
-        |   '-='
-        |   '*='
-        |   '/='
-        |   '&='
-        |   '|='
-        |   '^='
-        |   '>>='
-        |   '>>>='
-        |   '<<='
-        |   '%='
-        ;
-
 ternaryOperation
-    :   expression ':' expression
+    :   expression COLON expression
     ;
 
-UnaryAfterOperator
-    :   ('++'|'--')
-    ;
-
-UnaryOperator
-    :   ('+'|'-'|'++'|'--')
-    |   ('~'|'!')
-    ;
-
-BinaryOperator
-    :   '*'|'/'|'%'
-    |   '+'|'-'
-    |   '<' '<' | '>' '>' '>' | '>' '>'
-    |   '<=' | '>=' | '>' | '<'
-    |   '==' | '!='
-    |   '&'
-    |   '^'
-    |   '|'
-    |   '&&'
-    |   '||'
-    ;
 
 primary
     :   '(' expression ')'
@@ -985,6 +949,57 @@ MOD_ASSIGN      : '%=';
 LSHIFT_ASSIGN   : '<<=';
 RSHIFT_ASSIGN   : '>>=';
 URSHIFT_ASSIGN  : '>>>=';
+
+BinaryOperator
+    :   MUL
+    |   DIV
+    |   MOD
+    |   ADD
+    |   SUB
+    |   LE LE
+    |   GT GT GT
+    |   GT GT
+    |   LE
+    |   GE
+    |   LT
+    |   GT
+    |   EQUAL
+    |   NOTEQUAL
+    |   BITAND
+    |   CARET
+    |   BITOR
+    |   AND
+    |   OR
+    ;
+
+UnaryOperator
+    :   ADD
+    |   SUB
+    |   INC
+    |   DEC
+    |   TILDE
+    |   BANG
+    ;
+
+UnaryAfterOperator
+    :   INC
+    |   DEC
+    ;
+
+AssignOperator
+    :   ASSIGN
+    |   ADD_ASSIGN
+    |   SUB_ASSIGN
+    |   MUL_ASSIGN
+    |   DIV_ASSIGN
+    |   AND_ASSIGN
+    |   OR_ASSIGN
+    |   XOR_ASSIGN
+    |   RSHIFT_ASSIGN
+    |   LSHIFT_ASSIGN
+    |   URSHIFT_ASSIGN
+    |   MOD_ASSIGN
+    ;
 
 // §3.8 Identifiers (must appear after all keywords in the grammar)
 
