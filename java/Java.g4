@@ -501,14 +501,41 @@ expression
     |   expression '.' 'new' nonWildcardTypeArguments? innerCreator
     |   expression '.' 'super' superSuffix
     |   expression '.' explicitGenericInvocation
-    |   expression '[' expression ']'
-    |   expression '(' expressionList? ')'
-    |   'new' creator
-    |   '(' type ')' expression
-    |   expression ('++' | '--')
-    |   ('+'|'-'|'++'|'--') expression
+    |   arrayAccessExpression
+    |   methodCallExpression
+    |   creatorExpression
+    |   castExpression
+    |   unarySuffixedExpression
+    |   unaryExpression
+    |   binaryExpression
+    |   ternaryExpression
+    |   assignmentExpression
+    ;
+
+arrayAccessExpression
+    :   expression '[' expression ']'
+    ;
+
+methodCallExpression
+    :   expression '(' expressionList? ')'
+    ;
+
+creatorExpression
+    :   'new' creator
+    ;
+
+castExpression
+    :   '(' type ')' expression
+    ;
+unarySuffixedExpression
+    :   expression ('++' | '--')
+    ;
+unaryExpression
+    :   ('+'|'-'|'++'|'--') expression
     |   ('~'|'!') expression
-    |   expression ('*'|'/'|'%') expression
+    ;
+binaryExpression
+    :   expression ('*'|'/'|'%') expression
     |   expression ('+'|'-') expression
     |   expression ('<' '<' | '>' '>' '>' | '>' '>') expression
     |   expression ('<=' | '>=' | '>' | '<') expression
@@ -519,8 +546,12 @@ expression
     |   expression '|' expression
     |   expression '&&' expression
     |   expression '||' expression
-    |   expression '?' expression ':' expression
-    |   <assoc=right> expression
+    ;
+ternaryExpression
+    :   expression '?' expression ':' expression
+    ;
+assignmentExpression
+    :   <assoc=right> expression
         (   '='
         |   '+='
         |   '-='
